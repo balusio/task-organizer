@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=balu
+      - MYSQL_DATABASE=tasks
+      - MYSQL_USER=balu
+      - MYSQL_PASSWORD=balu
+    ports:
+      - "3306:3306"
+    restart: always
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./organizer
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
